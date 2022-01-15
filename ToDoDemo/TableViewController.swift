@@ -12,6 +12,7 @@ let inputCellReuseId = "inputCell"
 let todoCellResueId = "todoCell"
 
 class TableViewController: UITableViewController {
+    var toDoStore = ToDoStore.shared
     
     enum Section: Int {
         case input = 0, todos, max
@@ -24,7 +25,7 @@ class TableViewController: UITableViewController {
         title = "TODO - (0)"
         navigationItem.rightBarButtonItem?.isEnabled = false
         
-        ToDoStore.shared.getToDoItems { (data) in
+        toDoStore.getToDoItems { (data) in
             self.todos += data
             self.title = "TODO - (\(self.todos.count))"
             self.tableView.reloadData()
