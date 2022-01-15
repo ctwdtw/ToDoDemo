@@ -42,11 +42,32 @@ class ToDoDemoTests: XCTestCase {
     
     func test_renderEmptyToDos_onEmptyToDo() {
         let sut = makeSUT()
-        sut.getTodo = { completion in completion([]) }
+        let toDos = [String]()
+        sut.getTodo = { completion in completion(toDos) }
         
         sut.loadViewIfNeeded()
         
-        XCTAssertEqual(sut.numberOfRenderedCell(in: sut.toDosSection), 0)
+        assertThat(sut, render: toDos)
+    }
+    
+    func test_renderOneToDo_OnOneToDo() {
+        let sut = makeSUT()
+        let toDos = ["First-Todo"]
+        sut.getTodo = { completion in completion(toDos) }
+        
+        sut.loadViewIfNeeded()
+        
+        assertThat(sut, render: toDos)
+    }
+    
+    func test_renderManyToDo_onManyToDo() {
+        let sut = makeSUT()
+        let toDos = ["First-Todo", "Second-Todo", "Third-Todo"]
+        sut.getTodo = { completion in completion(toDos) }
+        
+        sut.loadViewIfNeeded()
+        
+        assertThat(sut, render: toDos)
     }
     
     private func makeSUT() -> TableViewController {
@@ -55,6 +76,16 @@ class ToDoDemoTests: XCTestCase {
         return sut
     }
     
+}
+
+extension ToDoDemoTests {
+    private func assertThat(_ sut: TableViewController, render toDos: [String], file: StaticString = #filePath, line: UInt = #line) {
+        
+        toDos.enumerated().forEach { (index, toDo) in
+            let toDoView = sut.cell(at: index, section: sut.toDosSection)
+            XCTAssertEqual(toDoView?.textLabel?.text, toDo, file: file, line: line)
+        }
+    }
 }
 
 private extension UITableViewController {
@@ -82,5 +113,9 @@ private extension TableViewController {
     
     func inputView(at index: Int) -> TableViewInputCell? {
         return cell(at: index, section: inputSection) as? TableViewInputCell
+    }
+    
+    func toDoCell(at index: Int) -> UITableViewCell? {
+        return cell(at: index, section: toDosSection)
     }
 }
