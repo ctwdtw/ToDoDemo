@@ -23,7 +23,13 @@ class ToDoDemoTests: XCTestCase {
         XCTAssertEqual(callCount, 1)
     }
     
-    
+    func test_renderTwoSections() {
+        let sut = makeSUT()
+        
+        sut.loadViewIfNeeded()
+        
+        XCTAssertEqual(sut.numberOfRenderedSections, 2)
+    }
     
     private func makeSUT() -> TableViewController {
         let navc = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController() as! UINavigationController
@@ -31,5 +37,10 @@ class ToDoDemoTests: XCTestCase {
         return sut
     }
     
+}
 
+private extension TableViewController {
+    var numberOfRenderedSections: Int? {
+        return tableView.dataSource?.numberOfSections?(in: tableView)
+    }
 }
