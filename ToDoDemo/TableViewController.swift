@@ -12,7 +12,7 @@ let inputCellReuseId = "inputCell"
 let todoCellResueId = "todoCell"
 
 class TableViewController: UITableViewController {
-    var toDoStore = ToDoStore.shared
+    var getTodo: (@escaping ([String]) -> Void) -> Void = ToDoStore.shared.getToDoItems(completionHandler:)
     
     enum Section: Int {
         case input = 0, todos, max
@@ -24,12 +24,12 @@ class TableViewController: UITableViewController {
         super.viewDidLoad()
         title = "TODO - (0)"
         navigationItem.rightBarButtonItem?.isEnabled = false
-        
-        toDoStore.getToDoItems { (data) in
+        getTodo { (data) in
             self.todos += data
             self.title = "TODO - (\(self.todos.count))"
             self.tableView.reloadData()
         }
+        
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
