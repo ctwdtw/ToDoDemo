@@ -40,6 +40,15 @@ class ToDoDemoTests: XCTestCase {
         XCTAssertNotNil(sut.inputView(at: 0))
     }
     
+    func test_renderEmptyToDos_onEmptyToDo() {
+        let sut = makeSUT()
+        sut.getTodo = { completion in completion([]) }
+        
+        sut.loadViewIfNeeded()
+        
+        XCTAssertEqual(sut.numberOfRenderedCell(in: sut.toDosSection), 0)
+    }
+    
     private func makeSUT() -> TableViewController {
         let navc = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController() as! UINavigationController
         let sut = navc.children[0] as! TableViewController
@@ -65,6 +74,10 @@ private extension UITableViewController {
 private extension TableViewController {
     var inputSection: Int {
         return 0
+    }
+    
+    var toDosSection: Int {
+        return 1
     }
     
     func inputView(at index: Int) -> TableViewInputCell? {
