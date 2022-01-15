@@ -100,6 +100,17 @@ class ToDoDemoTests: XCTestCase {
         assertThat(sut, enableAdd: false)
     }
     
+    func test_renderAddedToDo_onAdd() {
+        let sut = makeSUT()
+        sut.getTodo = { _ in }
+        
+        sut.loadViewIfNeeded()
+        assertThat(sut, render: [])
+        
+        sut.simulateAddToDo("A-new-ToDo")
+        assertThat(sut, render: ["A-new-ToDo"])
+    }
+    
     private func makeSUT() -> TableViewController {
         let navc = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController() as! UINavigationController
         let sut = navc.children[0] as! TableViewController
@@ -127,7 +138,7 @@ extension ToDoDemoTests {
     }
     
     private func assertThat(_ sut: TableViewController, enableAdd isEnabled: Bool, file: StaticString = #filePath, line: UInt = #line) {
-        XCTAssertEqual(sut.navigationItem.rightBarButtonItem?.isEnabled, isEnabled, file: file, line: line)
+        XCTAssertEqual(sut.addBarButtonItem?.isEnabled, isEnabled, file: file, line: line)
     }
     
 }
@@ -147,6 +158,10 @@ private extension UITableViewController {
 }
 
 private extension TableViewController {
+    var addBarButtonItem: UIBarButtonItem? {
+        navigationItem.rightBarButtonItem
+    }
+    
     var inputSection: Int {
         return 0
     }
@@ -167,5 +182,12 @@ private extension TableViewController {
         let textField = inputView?.textField
         textField?.text = text
         textField?.sendActions(for: .editingChanged)
+    }
+    
+    func simulateAddToDo(_ toDo: String) {
+        simulateInputText(toDo, on: inputView())
+        let target = addBarButtonItem?.target
+        let action = addBarButtonItem?.action
+        UIApplication.shared.sendAction(action!, to: target, from: nil, for: nil)
     }
 }
