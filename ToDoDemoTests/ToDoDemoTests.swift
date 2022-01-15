@@ -36,8 +36,7 @@ class ToDoDemoTests: XCTestCase {
         
         sut.loadViewIfNeeded()
         
-        XCTAssertEqual(sut.numberOfRenderedCell(in: sut.inputSection), 1)
-        XCTAssertNotNil(sut.inputView(at: 0))
+        assertRenderOneInputView(on: sut)
     }
     
     func test_renderEmptyToDos_onEmptyToDo() {
@@ -100,6 +99,12 @@ extension ToDoDemoTests {
     private func assertThat(_ sut: TableViewController, rendersToDoCount count: Int, file: StaticString = #filePath, line: UInt = #line) {
         XCTAssertEqual(sut.title?.contains("\(count)"), true, file: file, line: line)
     }
+    
+    private func assertRenderOneInputView(on sut: TableViewController, file: StaticString = #filePath, line: UInt = #line) {
+        XCTAssertEqual(sut.numberOfRenderedCell(in: sut.inputSection), 1)
+        XCTAssertNotNil(sut.inputView(at: 0))
+    }
+    
 }
 
 private extension UITableViewController {
