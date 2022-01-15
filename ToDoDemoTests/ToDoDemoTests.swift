@@ -86,7 +86,7 @@ class ToDoDemoTests: XCTestCase {
         
         assertThat(sut, enableAdd: false)
         
-        let inputView = sut.inputView(at: 0)
+        let inputView = sut.inputView()
         sut.simulateInputText("a", on: inputView)
         assertThat(sut, enableAdd: false)
         
@@ -122,8 +122,8 @@ extension ToDoDemoTests {
     }
     
     private func assertRenderOneInputView(on sut: TableViewController, file: StaticString = #filePath, line: UInt = #line) {
-        XCTAssertEqual(sut.numberOfRenderedCell(in: sut.inputSection), 1)
-        XCTAssertNotNil(sut.inputView(at: 0))
+        XCTAssertEqual(sut.numberOfRenderedCell(in: sut.inputSection), 1, file: file, line: line)
+        XCTAssertNotNil(sut.inputView(), file: file, line: line)
     }
     
     private func assertThat(_ sut: TableViewController, enableAdd isEnabled: Bool, file: StaticString = #filePath, line: UInt = #line) {
@@ -155,8 +155,8 @@ private extension TableViewController {
         return 1
     }
     
-    func inputView(at index: Int) -> TableViewInputCell? {
-        return cell(at: index, section: inputSection) as? TableViewInputCell
+    func inputView() -> TableViewInputCell? {
+        return cell(at: 0, section: inputSection) as? TableViewInputCell
     }
     
     func toDoCell(at index: Int) -> UITableViewCell? {
