@@ -79,6 +79,27 @@ class ToDoDemoTests: XCTestCase {
         assertThat(sut, rendersToDoCount: toDos.count)
     }
     
+    func test_renderAddAction() {
+        let sut = makeSUT()
+        
+        sut.loadViewIfNeeded()
+        
+        assertThat(sut, enableAdd: false)
+        
+        let inputView = sut.inputView(at: 0)
+        sut.simulateInputText("a", on: inputView)
+        assertThat(sut, enableAdd: false)
+        
+        sut.simulateInputText("ab", on: inputView)
+        assertThat(sut, enableAdd: false)
+        
+        sut.simulateInputText("abc", on: inputView)
+        assertThat(sut, enableAdd: true)
+        
+        sut.simulateInputText("ab", on: inputView)
+        assertThat(sut, enableAdd: false)
+    }
+    
     private func makeSUT() -> TableViewController {
         let navc = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController() as! UINavigationController
         let sut = navc.children[0] as! TableViewController
@@ -103,6 +124,10 @@ extension ToDoDemoTests {
     private func assertRenderOneInputView(on sut: TableViewController, file: StaticString = #filePath, line: UInt = #line) {
         XCTAssertEqual(sut.numberOfRenderedCell(in: sut.inputSection), 1)
         XCTAssertNotNil(sut.inputView(at: 0))
+    }
+    
+    private func assertThat(_ sut: TableViewController, enableAdd isEnabled: Bool, file: StaticString = #filePath, line: UInt = #line) {
+        XCTAssertEqual(sut.navigationItem.rightBarButtonItem?.isEnabled, isEnabled, file: file, line: line)
     }
     
 }
@@ -136,5 +161,11 @@ private extension TableViewController {
     
     func toDoCell(at index: Int) -> UITableViewCell? {
         return cell(at: index, section: toDosSection)
+    }
+    
+    func simulateInputText(_ text: String, on inputView: TableViewInputCell?) {
+        let textField = inputView?.textField
+        textField?.text = text
+        textField?.sendActions(for: .editingChanged)
     }
 }
