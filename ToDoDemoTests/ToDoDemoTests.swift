@@ -70,6 +70,16 @@ class ToDoDemoTests: XCTestCase {
         assertThat(sut, render: toDos)
     }
     
+    func test_renderToDoCounts() {
+        let sut = makeSUT()
+        let toDos = ["First-Todo", "Second-Todo"]
+        sut.getTodo = { completion in completion(toDos) }
+        
+        sut.loadViewIfNeeded()
+        
+        assertThat(sut, rendersToDoCount: toDos.count)
+    }
+    
     private func makeSUT() -> TableViewController {
         let navc = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController() as! UINavigationController
         let sut = navc.children[0] as! TableViewController
@@ -85,6 +95,10 @@ extension ToDoDemoTests {
             let toDoView = sut.cell(at: index, section: sut.toDosSection)
             XCTAssertEqual(toDoView?.textLabel?.text, toDo, file: file, line: line)
         }
+    }
+    
+    private func assertThat(_ sut: TableViewController, rendersToDoCount count: Int, file: StaticString = #filePath, line: UInt = #line) {
+        XCTAssertEqual(sut.title?.contains("\(count)"), true, file: file, line: line)
     }
 }
 
