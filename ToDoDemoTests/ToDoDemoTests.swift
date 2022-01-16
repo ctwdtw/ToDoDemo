@@ -83,20 +83,18 @@ class ToDoDemoTests: XCTestCase {
         let sut = makeSUT()
         
         sut.loadViewIfNeeded()
-        
         assertThat(sut, enableAdd: false)
         
-        let inputView = sut.inputView()
-        sut.simulateInputText("a", on: inputView)
+        sut.simulateInputText("a")
         assertThat(sut, enableAdd: false)
         
-        sut.simulateInputText("ab", on: inputView)
+        sut.simulateInputText("ab")
         assertThat(sut, enableAdd: false)
         
-        sut.simulateInputText("abc", on: inputView)
+        sut.simulateInputText("abc")
         assertThat(sut, enableAdd: true)
         
-        sut.simulateInputText("ab", on: inputView)
+        sut.simulateInputText("ab")
         assertThat(sut, enableAdd: false)
     }
     
@@ -134,9 +132,7 @@ class ToDoDemoTests: XCTestCase {
 
 extension ToDoDemoTests {
     private func assertThat(_ sut: TableViewController, render toDos: [String], file: StaticString = #filePath, line: UInt = #line) {
-        
         sut.view.forceLayout()
-        
         toDos.enumerated().forEach { (index, toDo) in
             let toDoView = sut.cell(at: index, section: sut.toDosSection)
             XCTAssertEqual(toDoView?.textLabel?.text, toDo, file: file, line: line)
@@ -153,6 +149,7 @@ extension ToDoDemoTests {
     }
     
     private func assertThat(_ sut: TableViewController, enableAdd isEnabled: Bool, file: StaticString = #filePath, line: UInt = #line) {
+        sut.view.forceLayout()
         XCTAssertEqual(sut.addBarButtonItem?.isEnabled, isEnabled, file: file, line: line)
     }
     
@@ -193,8 +190,9 @@ private extension TableViewController {
         return cell(at: index, section: toDosSection)
     }
     
-    func simulateInputText(_ text: String, on inputView: TableViewInputCell?) {
-        let textField = inputView?.textField
+    func simulateInputText(_ text: String) {
+        let cell = tableView.cellForRow(at: IndexPath(row: 0, section: inputSection)) as? TableViewInputCell
+        let textField = cell?.textField
         textField?.text = text
         textField?.sendActions(for: .editingChanged)
     }
