@@ -34,7 +34,17 @@ class TablePresenter {
     
     weak var inputView: InputView?
     
-    private(set) var todos: [String] = []
+    private var todos: [String] = []
+    
+    var numberOfToDos: Int {
+        return todos.count
+    }
+    
+    let inputSection = 0
+    
+    var inputIndexPath: IndexPath {
+        IndexPath(row: 0, section: inputSection)
+    }
     
     func getInitialViewData() {
         titleView?.didUpDateTitle("TODO - (0)")
@@ -65,5 +75,9 @@ class TablePresenter {
     func inputText(_ text: String) {
         let isItemLengthEnough = text.count >= 3
         addActionView?.didUpadAddActionView(isEnabled: isItemLengthEnough)
+    }
+    
+    func toDoViewModel(at index: Int) -> String {
+        return todos[index]
     }
 }

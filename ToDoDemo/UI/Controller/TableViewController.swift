@@ -12,11 +12,12 @@ let inputCellReuseId = "inputCell"
 let todoCellResueId = "todoCell"
 
 class TableViewController: UITableViewController {
-    enum Section: Int {
-        case input = 0, todos, max
-    }
-    
     var presenter = TablePresenter()
+    
+    private lazy var sections: [Section] = [
+        Section(dataSource: InputSection(presenter: presenter)),
+        Section(dataSource: ToDoSection(presenter: presenter))
+    ]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,8 +26,7 @@ class TableViewController: UITableViewController {
     }
 
     @IBAction func addButtonPressed(_ sender: Any) {
-        let inputIndexPath = IndexPath(row: 0, section: Section.input.rawValue)
-        guard let inputCell = tableView.cellForRow(at: inputIndexPath) as? TableViewInputCell,
+        guard let inputCell = tableView.cellForRow(at: presenter.inputIndexPath) as? TableViewInputCell,
               let text = inputCell.textField.text else
         {
             return
@@ -37,6 +37,7 @@ class TableViewController: UITableViewController {
     }
 }
 
+//MARK: - UI
 extension TableViewController: TitleView, TableView, AddActionView {
     func didUpDateTitle(_ title: String) {
         self.title = title
@@ -57,47 +58,25 @@ extension TableViewInputCell: InputView {
     }
 }
 
+//MARK: - DataSource & Delegate
 extension TableViewController {
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return Section.max.rawValue
+        return sections.count
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let section = Section(rawValue: section) else {
-            fatalError()
-        }
-        switch section {
-        case .input: return 1
-        case .todos: return presenter.todos.count
-        case .max: fatalError()
-        }
+        let ds = sections[section].dataSource
+        return ds.tableView(tableView, numberOfRowsInSection: section)
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let section = Section(rawValue: indexPath.section) else {
-            fatalError()
-        }
-        
-        switch section {
-        case .input:
-            let cell = tableView.dequeueReusableCell(withIdentifier: inputCellReuseId, for: indexPath) as! TableViewInputCell
-            cell.presenter = presenter
-            return cell
-        case .todos:
-            let cell = tableView.dequeueReusableCell(withIdentifier: todoCellResueId, for: indexPath)
-            cell.textLabel?.text = presenter.todos[indexPath.row]
-            return cell
-        default:
-            fatalError()
-        }
+        let ds = sections[indexPath.section].dataSource
+        return ds.tableView(tableView, cellForRowAt: indexPath)
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard indexPath.section == Section.todos.rawValue else {
-            return
-        }
-        
-        presenter.removeToDo(at: indexPath.row)
+        let dl = sections[indexPath.section].delegate
+        dl?.tableView?(tableView, didSelectRowAt: indexPath)
     }
 }
 
