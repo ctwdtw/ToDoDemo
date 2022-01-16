@@ -111,6 +111,19 @@ class ToDoDemoTests: XCTestCase {
         assertThat(sut, render: ["A-new-ToDo"])
     }
     
+    func test_removeToDo_onRemove() {
+        let sut = makeSUT()
+        let toDos = ["First-Todo", "Second-Todo", "Third-Todo"]
+        sut.getTodo = { completion in completion(toDos) }
+
+        sut.loadViewIfNeeded()
+        assertThat(sut, render: toDos)
+
+        sut.simulateRemoveToDo(at: 1)
+
+        assertThat(sut, render: ["First-Todo", "Third-Todo"])
+    }
+    
     private func makeSUT() -> TableViewController {
         let navc = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController() as! UINavigationController
         let sut = navc.children[0] as! TableViewController
@@ -121,6 +134,8 @@ class ToDoDemoTests: XCTestCase {
 
 extension ToDoDemoTests {
     private func assertThat(_ sut: TableViewController, render toDos: [String], file: StaticString = #filePath, line: UInt = #line) {
+        
+        sut.view.forceLayout()
         
         toDos.enumerated().forEach { (index, toDo) in
             let toDoView = sut.cell(at: index, section: sut.toDosSection)
@@ -185,9 +200,21 @@ private extension TableViewController {
     }
     
     func simulateAddToDo(_ toDo: String) {
-        simulateInputText(toDo, on: inputView())
+        let cell = tableView.cellForRow(at: IndexPath(row: 0, section: inputSection)) as? TableViewInputCell
+        cell?.textField.text = toDo
         let target = addBarButtonItem?.target
         let action = addBarButtonItem?.action
         UIApplication.shared.sendAction(action!, to: target, from: nil, for: nil)
+    }
+    
+    func simulateRemoveToDo(at index: Int) {
+        tableView.delegate?.tableView?(tableView, didSelectRowAt: IndexPath(row: index, section: toDosSection))
+    }
+}
+
+extension UIView {
+    func forceLayout() {
+        layoutIfNeeded()
+        RunLoop.main.run(until: Date())
     }
 }
