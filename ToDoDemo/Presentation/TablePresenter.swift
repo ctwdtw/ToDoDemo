@@ -19,14 +19,20 @@ protocol AddActionView: class {
     func didUpadAddActionView(isEnabled: Bool)
 }
 
+protocol InputView: class {
+    func didUpdateInputText(_ text: String)
+}
+
 class TablePresenter {
     var getTodo: (@escaping ([String]) -> Void) -> Void = ToDoStore.shared.getToDoItems(completionHandler:)
     
     weak var titleView: TitleView?
     
+    weak var addActionView: AddActionView?
+    
     weak var tableView: TableView?
     
-    weak var addActionView: AddActionView?
+    weak var inputView: InputView?
     
     private(set) var todos: [String] = []
     
@@ -53,6 +59,7 @@ class TablePresenter {
         todos.insert(toDo, at: 0)
         titleView?.didUpDateTitle("TODO - (\(todos.count))")
         tableView?.didUpdateTable()
+        inputView?.didUpdateInputText("")
     }
     
     func inputText(_ text: String) {

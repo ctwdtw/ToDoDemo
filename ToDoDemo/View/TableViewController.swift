@@ -33,8 +33,7 @@ class TableViewController: UITableViewController {
         }
         
         presenter.insertToDo(text)
-        
-        inputCell.textField.text = ""
+    
     }
 }
 
@@ -52,9 +51,9 @@ extension TableViewController: TitleView, TableView, AddActionView {
     }
 }
 
-extension TableViewController: TableViewInputCellDelegate {
-    func inputChanged(cell: TableViewInputCell, text: String) {
-        presenter.inputText(text)
+extension TableViewInputCell: InputView {
+    func didUpdateInputText(_ text: String) {
+        textField.text = text
     }
 }
 
@@ -82,7 +81,7 @@ extension TableViewController {
         switch section {
         case .input:
             let cell = tableView.dequeueReusableCell(withIdentifier: inputCellReuseId, for: indexPath) as! TableViewInputCell
-            cell.delegate = self
+            cell.presenter = presenter
             return cell
         case .todos:
             let cell = tableView.dequeueReusableCell(withIdentifier: todoCellResueId, for: indexPath)
