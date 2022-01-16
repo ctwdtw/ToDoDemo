@@ -41,18 +41,15 @@ class ToDoDemoTests: XCTestCase {
     
     func test_renderEmptyToDos_onEmptyToDo() {
         let sut = makeSUT()
-        let toDos = [String]()
-        sut.getTodo = { completion in completion(toDos) }
         
         sut.loadViewIfNeeded()
         
-        assertThat(sut, render: toDos)
+        assertThat(sut, render: [])
     }
     
     func test_renderOneToDo_OnOneToDo() {
-        let sut = makeSUT()
         let toDos = ["First-Todo"]
-        sut.getTodo = { completion in completion(toDos) }
+        let sut = makeSUT(stubToDos: toDos)
         
         sut.loadViewIfNeeded()
         
@@ -60,9 +57,8 @@ class ToDoDemoTests: XCTestCase {
     }
     
     func test_renderManyToDo_onManyToDo() {
-        let sut = makeSUT()
         let toDos = ["First-Todo", "Second-Todo", "Third-Todo"]
-        sut.getTodo = { completion in completion(toDos) }
+        let sut = makeSUT(stubToDos: toDos)
         
         sut.loadViewIfNeeded()
         
@@ -70,9 +66,8 @@ class ToDoDemoTests: XCTestCase {
     }
     
     func test_renderToDoCounts() {
-        let sut = makeSUT()
         let toDos = ["First-Todo", "Second-Todo"]
-        sut.getTodo = { completion in completion(toDos) }
+        let sut = makeSUT(stubToDos: toDos)
         
         sut.loadViewIfNeeded()
         
@@ -110,21 +105,20 @@ class ToDoDemoTests: XCTestCase {
     }
     
     func test_removeToDo_onRemove() {
-        let sut = makeSUT()
         let toDos = ["First-Todo", "Second-Todo", "Third-Todo"]
-        sut.getTodo = { completion in completion(toDos) }
-
+        let sut = makeSUT(stubToDos: toDos)
+        
         sut.loadViewIfNeeded()
         assertThat(sut, render: toDos)
 
         sut.simulateRemoveToDo(at: 1)
-
         assertThat(sut, render: ["First-Todo", "Third-Todo"])
     }
     
-    private func makeSUT() -> TableViewController {
+    private func makeSUT(stubToDos: [String] = []) -> TableViewController {
         let navc = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController() as! UINavigationController
         let sut = navc.children[0] as! TableViewController
+        sut.getTodo = { completion in completion(stubToDos) }
         return sut
     }
     
