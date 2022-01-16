@@ -12,9 +12,8 @@ import XCTest
 class ToDoDemoTests: XCTestCase {
     func test_viewDidLoad_requestToDos() {
         //
-        let sut = makeSUT()
         var callCount = 0
-        sut.getTodo = { _ in callCount +=  1 }
+        let sut = makeSUT(getToDo: { _ in callCount +=  1 } )
         
         //
         sut.loadViewIfNeeded()
@@ -95,7 +94,6 @@ class ToDoDemoTests: XCTestCase {
     
     func test_renderAddedToDo_onAdd() {
         let sut = makeSUT()
-        sut.getTodo = { _ in }
         
         sut.loadViewIfNeeded()
         assertThat(sut, render: [])
@@ -115,13 +113,45 @@ class ToDoDemoTests: XCTestCase {
         assertThat(sut, render: ["First-Todo", "Third-Todo"])
     }
     
-    private func makeSUT(stubToDos: [String] = []) -> TableViewController {
+    private func makeSUT(
+        stubToDos: [String] = [],
+        file: StaticString = #filePath, line: UInt = #line
+    ) -> TableViewController {
         let navc = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController() as! UINavigationController
         let sut = navc.children[0] as! TableViewController
-        sut.getTodo = { completion in completion(stubToDos) }
+        let presenter = TablePresenter()
+        presenter.getTodo = { complete in complete(stubToDos) }
+        presenter.titleView = sut
+        presenter.tableView = sut
+        presenter.addActionView = sut
+        sut.presenter = presenter
+        trackForMemoryLeak(sut, file: file, line: line)
+        trackForMemoryLeak(presenter, file: file, line: line)
         return sut
     }
     
+    private func makeSUT(
+        getToDo: @escaping (([String]) -> Void) -> Void,
+        file: StaticString = #filePath, line: UInt = #line
+    ) -> TableViewController {
+        let navc = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController() as! UINavigationController
+        let sut = navc.children[0] as! TableViewController
+        let presenter = TablePresenter()
+        presenter.getTodo = getToDo
+        presenter.titleView = sut
+        presenter.tableView = sut
+        presenter.addActionView = sut
+        sut.presenter = presenter
+        trackForMemoryLeak(sut, file: file, line: line)
+        trackForMemoryLeak(presenter, file: file, line: line)
+        return sut
+    }
+    
+    private func trackForMemoryLeak(_ instance: AnyObject, file: StaticString = #filePath, line: UInt = #line) {
+        addTeardownBlock { [weak instance] in
+            XCTAssertNil(instance, "instance \(String(describing: instance)) should have been deallocated", file: file, line: line)
+        }
+    }
 }
 
 extension ToDoDemoTests {
@@ -134,7 +164,7 @@ extension ToDoDemoTests {
     }
     
     private func assertThat(_ sut: TableViewController, rendersToDoCount count: Int, file: StaticString = #filePath, line: UInt = #line) {
-        XCTAssertEqual(sut.title?.contains("\(count)"), true, file: file, line: line)
+        XCTAssertEqual(sut.title?.contains("\(count)"), true, "title :\(String(describing: sut.title)), does not contain number \(count)", file: file, line: line)
     }
     
     private func assertRenderOneInputView(on sut: TableViewController, file: StaticString = #filePath, line: UInt = #line) {
