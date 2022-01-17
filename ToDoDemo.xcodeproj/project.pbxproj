@@ -18,6 +18,7 @@
 		63DB5DD22794757400F3F4AF /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DB5DD12794757400F3F4AF /* Section.swift */; };
 		63DB5DD4279475B500F3F4AF /* InputSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DB5DD3279475B500F3F4AF /* InputSection.swift */; };
 		63DB5DD6279475E500F3F4AF /* ToDoSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DB5DD5279475E500F3F4AF /* ToDoSection.swift */; };
+		63DB5DD82795201000F3F4AF /* ToDoUIComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DB5DD72795201000F3F4AF /* ToDoUIComposer.swift */; };
 		D1CA9FF81F0E4FA6003EA944 /* ToDoStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1CA9FF71F0E4FA6003EA944 /* ToDoStore.swift */; };
 /* End PBXBuildFile section */
 
@@ -46,6 +47,7 @@
 		63DB5DD12794757400F3F4AF /* Section.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Section.swift; sourceTree = "<group>"; };
 		63DB5DD3279475B500F3F4AF /* InputSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputSection.swift; sourceTree = "<group>"; };
 		63DB5DD5279475E500F3F4AF /* ToDoSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoSection.swift; sourceTree = "<group>"; };
+		63DB5DD72795201000F3F4AF /* ToDoUIComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoUIComposer.swift; sourceTree = "<group>"; };
 		D1CA9FF71F0E4FA6003EA944 /* ToDoStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoStore.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -89,6 +91,7 @@
 			isa = PBXGroup;
 			children = (
 				4B5B9B3A1F0DDD580056E239 /* AppDelegate.swift */,
+				63DB5DD72795201000F3F4AF /* ToDoUIComposer.swift */,
 				63DB5DCA2794326F00F3F4AF /* Service */,
 				63DB5DCE2794332000F3F4AF /* Presentation */,
 				63DB5DD02794755E00F3F4AF /* UI */,
@@ -254,6 +257,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				63DB5DD82795201000F3F4AF /* ToDoUIComposer.swift in Sources */,
 				63DB5DD4279475B500F3F4AF /* InputSection.swift in Sources */,
 				4B5B9B3D1F0DDD580056E239 /* TableViewController.swift in Sources */,
 				D1CA9FF81F0E4FA6003EA944 /* ToDoStore.swift in Sources */,

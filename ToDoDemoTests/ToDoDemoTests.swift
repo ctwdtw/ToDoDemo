@@ -117,16 +117,11 @@ class ToDoDemoTests: XCTestCase {
         stubToDos: [String] = [],
         file: StaticString = #filePath, line: UInt = #line
     ) -> TableViewController {
-        let navc = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController() as! UINavigationController
-        let sut = navc.children[0] as! TableViewController
-        let presenter = TablePresenter()
-        presenter.getTodo = { complete in complete(stubToDos) }
-        presenter.titleView = sut
-        presenter.tableView = sut
-        presenter.addActionView = sut
-        sut.presenter = presenter
+        
+        let sut = ToDoUIComposer.compose(getToDo: { complete in complete(stubToDos) })
+        
         trackForMemoryLeak(sut, file: file, line: line)
-        trackForMemoryLeak(presenter, file: file, line: line)
+        
         return sut
     }
     
@@ -134,16 +129,11 @@ class ToDoDemoTests: XCTestCase {
         getToDo: @escaping (([String]) -> Void) -> Void,
         file: StaticString = #filePath, line: UInt = #line
     ) -> TableViewController {
-        let navc = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController() as! UINavigationController
-        let sut = navc.children[0] as! TableViewController
-        let presenter = TablePresenter()
-        presenter.getTodo = getToDo
-        presenter.titleView = sut
-        presenter.tableView = sut
-        presenter.addActionView = sut
-        sut.presenter = presenter
+        
+        let sut = ToDoUIComposer.compose(getToDo: getToDo)
+        
         trackForMemoryLeak(sut, file: file, line: line)
-        trackForMemoryLeak(presenter, file: file, line: line)
+        
         return sut
     }
     
