@@ -153,7 +153,7 @@ extension ToDoDemoTests {
         sut.view.forceLayout()
         toDos.enumerated().forEach { (index, toDo) in
             let toDoView = sut.cell(at: index, section: sut.toDosSection)
-            XCTAssertEqual(toDoView?.textLabel?.text, toDo, file: file, line: line)
+            XCTAssertEqual(toDoView?.textLabel?.text, toDo, "receive \(String(describing: toDoView?.textLabel?.text)), but expect \(toDo)", file: file, line: line)
         }
     }
     
@@ -162,13 +162,15 @@ extension ToDoDemoTests {
     }
     
     private func assertRenderOneInputView(on sut: TableViewController, file: StaticString = #filePath, line: UInt = #line) {
-        XCTAssertEqual(sut.numberOfRenderedCell(in: sut.inputSection), 1, file: file, line: line)
-        XCTAssertNotNil(sut.inputView(), file: file, line: line)
+        XCTAssertEqual(sut.numberOfRenderedCell(in: sut.inputSection), 1,
+                       "receive \(String(describing: sut.numberOfRenderedCell(in: sut.inputSection))) rows at inputSection but expect 1", file: file, line: line)
+        XCTAssertNotNil(sut.inputView(), "InputView should not be nil", file: file, line: line)
     }
     
     private func assertThat(_ sut: TableViewController, enableAdd isEnabled: Bool, file: StaticString = #filePath, line: UInt = #line) {
         sut.view.forceLayout()
-        XCTAssertEqual(sut.addBarButtonItem?.isEnabled, isEnabled, file: file, line: line)
+        XCTAssertEqual(sut.addBarButtonItem?.isEnabled, isEnabled,
+                       "addAction enable status is \(String(describing: sut.addBarButtonItem?.isEnabled)), but expect \(isEnabled)", file: file, line: line)
     }
     
 }
