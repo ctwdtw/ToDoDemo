@@ -47,7 +47,7 @@ extension TableViewController: TitleView, TableView, AddActionView {
         tableView.reloadData()
     }
     
-    func didUpadAddActionView(isEnabled: Bool) {
+    func didUpdateAddActionView(isEnabled: Bool) {
         navigationItem.rightBarButtonItem?.isEnabled = isEnabled
     }
 }

@@ -16,7 +16,7 @@ protocol TableView: class {
 }
 
 protocol AddActionView: class {
-    func didUpadAddActionView(isEnabled: Bool)
+    func didUpdateAddActionView(isEnabled: Bool)
 }
 
 protocol InputView: class {
@@ -48,7 +48,7 @@ class TablePresenter {
     
     func getInitialViewData() {
         titleView?.didUpDateTitle("TODO - (0)")
-        addActionView?.didUpadAddActionView(isEnabled: false)
+        addActionView?.didUpdateAddActionView(isEnabled: false)
     }
     
     func fetchToDo() {
@@ -74,7 +74,7 @@ class TablePresenter {
     
     func inputText(_ text: String) {
         let isItemLengthEnough = text.count >= 3
-        addActionView?.didUpadAddActionView(isEnabled: isItemLengthEnough)
+        addActionView?.didUpdateAddActionView(isEnabled: isItemLengthEnough)
     }
     
     func toDoViewModel(at index: Int) -> String {
