@@ -102,6 +102,16 @@ class ToDoDemoTests: XCTestCase {
         assertThat(sut, render: ["A-new-ToDo"])
     }
     
+    func test_disableAddAction_afterAdd() {
+        let sut = makeSUT()
+        
+        sut.loadViewIfNeeded()
+        assertThat(sut, render: [])
+        
+        sut.simulateAddToDo("A-new-ToDo")
+        assertThat(sut, enableAdd: false)
+    }
+    
     func test_removeToDo_onRemove() {
         let toDos = ["First-Todo", "Second-Todo", "Third-Todo"]
         let sut = makeSUT(stubToDos: toDos)
@@ -206,8 +216,7 @@ private extension TableViewController {
     }
     
     func simulateAddToDo(_ toDo: String) {
-        let cell = tableView.cellForRow(at: IndexPath(row: 0, section: inputSection)) as? TableViewInputCell
-        cell?.textField.text = toDo
+        simulateInputText(toDo)
         let target = addBarButtonItem?.target
         let action = addBarButtonItem?.action
         UIApplication.shared.sendAction(action!, to: target, from: nil, for: nil)

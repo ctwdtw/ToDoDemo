@@ -70,6 +70,7 @@ class TablePresenter {
         titleView?.didUpDateTitle("TODO - (\(todos.count))")
         tableView?.didUpdateTable()
         inputView?.didUpdateInputText("")
+        addActionView?.didUpdateAddActionView(isEnabled: false)
     }
     
     func inputText(_ text: String) {
