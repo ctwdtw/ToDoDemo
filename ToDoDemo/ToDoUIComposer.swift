@@ -9,15 +9,17 @@
 import UIKit
 
 class ToDoUIComposer {
-    static func compose(getToDo: @escaping (@escaping ([String]) -> Void) -> Void) -> TableViewController {
+    static func compose(getToDo: @escaping (@escaping ([String]) -> Void) -> Void) -> (TableViewController, TablePresenter) {
         let navc = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController() as! UINavigationController
         let sut = navc.children[0] as! TableViewController
-        let presenter = TablePresenter()
+        let presenter = TablePresenter(
+            titleView: WeakRefVirtualProxy(sut),
+            addActionView: WeakRefVirtualProxy(sut),
+            tableView: WeakRefVirtualProxy(sut)
+        )
         presenter.getTodo = getToDo
-        presenter.titleView = sut
-        presenter.tableView = sut
-        presenter.addActionView = sut
+        
         sut.presenter = presenter
-        return sut
+        return (sut, presenter)
     }
 }

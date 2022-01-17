@@ -20,6 +20,7 @@
 		63DB5DD6279475E500F3F4AF /* ToDoSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DB5DD5279475E500F3F4AF /* ToDoSection.swift */; };
 		63DB5DD82795201000F3F4AF /* ToDoUIComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DB5DD72795201000F3F4AF /* ToDoUIComposer.swift */; };
 		63DB5DDC279523F600F3F4AF /* AppDelegateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DB5DDB279523F600F3F4AF /* AppDelegateTests.swift */; };
+		63DB5DDE2795654E00F3F4AF /* WeakRefVirtualProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DB5DDD2795654E00F3F4AF /* WeakRefVirtualProxy.swift */; };
 		D1CA9FF81F0E4FA6003EA944 /* ToDoStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1CA9FF71F0E4FA6003EA944 /* ToDoStore.swift */; };
 /* End PBXBuildFile section */
 
@@ -50,6 +51,7 @@
 		63DB5DD5279475E500F3F4AF /* ToDoSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoSection.swift; sourceTree = "<group>"; };
 		63DB5DD72795201000F3F4AF /* ToDoUIComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoUIComposer.swift; sourceTree = "<group>"; };
 		63DB5DDB279523F600F3F4AF /* AppDelegateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegateTests.swift; sourceTree = "<group>"; };
+		63DB5DDD2795654E00F3F4AF /* WeakRefVirtualProxy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeakRefVirtualProxy.swift; sourceTree = "<group>"; };
 		D1CA9FF71F0E4FA6003EA944 /* ToDoStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoStore.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -94,6 +96,7 @@
 			children = (
 				4B5B9B3A1F0DDD580056E239 /* AppDelegate.swift */,
 				63DB5DD72795201000F3F4AF /* ToDoUIComposer.swift */,
+				63DB5DDD2795654E00F3F4AF /* WeakRefVirtualProxy.swift */,
 				63DB5DCA2794326F00F3F4AF /* Service */,
 				63DB5DCE2794332000F3F4AF /* Presentation */,
 				63DB5DD02794755E00F3F4AF /* UI */,
@@ -263,6 +266,7 @@
 			files = (
 				63DB5DD82795201000F3F4AF /* ToDoUIComposer.swift in Sources */,
 				63DB5DD4279475B500F3F4AF /* InputSection.swift in Sources */,
+				63DB5DDE2795654E00F3F4AF /* WeakRefVirtualProxy.swift in Sources */,
 				4B5B9B3D1F0DDD580056E239 /* TableViewController.swift in Sources */,
 				D1CA9FF81F0E4FA6003EA944 /* ToDoStore.swift in Sources */,
 				63DB5DCD2794331B00F3F4AF /* TablePresenter.swift in Sources */,

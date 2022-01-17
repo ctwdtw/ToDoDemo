@@ -7,32 +7,38 @@
 //
 
 import Foundation
-protocol TitleView: class {
+protocol TitleView {
     func didUpDateTitle(_ title: String)
 }
 
-protocol TableView: class {
+protocol TableView {
     func didUpdateTable()
 }
 
-protocol AddActionView: class {
+protocol AddActionView {
     func didUpdateAddActionView(isEnabled: Bool)
 }
 
-protocol InputView: class {
+protocol InputView {
     func didUpdateInputText(_ text: String)
 }
 
 class TablePresenter {
     var getTodo: (@escaping ([String]) -> Void) -> Void = ToDoStore.shared.getToDoItems(completionHandler:)
     
-    weak var titleView: TitleView?
+    private let titleView: TitleView?
     
-    weak var addActionView: AddActionView?
+    private let addActionView: AddActionView?
     
-    weak var tableView: TableView?
+    private let tableView: TableView?
     
-    weak var inputView: InputView?
+    var inputView: InputView?
+    
+    init(titleView: TitleView, addActionView: AddActionView, tableView: TableView) {
+        self.titleView = titleView
+        self.addActionView = addActionView
+        self.tableView = tableView
+    }
     
     private var todos: [String] = []
     

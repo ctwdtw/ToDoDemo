@@ -15,7 +15,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-        let vc = ToDoUIComposer.compose(getToDo: ToDoStore.shared.getToDoItems(completionHandler:))
+        let (vc, _) = ToDoUIComposer.compose(getToDo: ToDoStore.shared.getToDoItems(completionHandler:))
         window?.rootViewController = vc.navigationController
         return true
     }

@@ -128,9 +128,10 @@ class ToDoDemoTests: XCTestCase {
         file: StaticString = #filePath, line: UInt = #line
     ) -> TableViewController {
         
-        let sut = ToDoUIComposer.compose(getToDo: { complete in complete(stubToDos) })
+        let (sut, presenter) = ToDoUIComposer.compose(getToDo: { complete in complete(stubToDos) })
         
         trackForMemoryLeak(sut, file: file, line: line)
+        trackForMemoryLeak(presenter, file: file, line: line)
         
         return sut
     }
@@ -140,9 +141,10 @@ class ToDoDemoTests: XCTestCase {
         file: StaticString = #filePath, line: UInt = #line
     ) -> TableViewController {
         
-        let sut = ToDoUIComposer.compose(getToDo: getToDo)
+        let (sut, presenter) = ToDoUIComposer.compose(getToDo: getToDo)
         
         trackForMemoryLeak(sut, file: file, line: line)
+        trackForMemoryLeak(presenter, file: file, line: line)
         
         return sut
     }

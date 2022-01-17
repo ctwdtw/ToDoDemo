@@ -12,7 +12,7 @@ let inputCellReuseId = "inputCell"
 let todoCellResueId = "todoCell"
 
 class TableViewController: UITableViewController {
-    var presenter = TablePresenter()
+    var presenter: TablePresenter!
     
     private lazy var sections: [Section] = [
         Section(dataSource: InputSection(presenter: presenter)),

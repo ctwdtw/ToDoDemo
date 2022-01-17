@@ -9,10 +9,10 @@
 import UIKit
 
 class TableViewInputCell: UITableViewCell {
-    
-    var presenter: TablePresenter?
+    weak var presenter: TablePresenter?
     
     @IBOutlet weak var textField: UITextField!
+    
     @objc @IBAction func textFieldValueChanged(_ sender: UITextField) {
         presenter?.inputText(sender.text ?? "")
     }
