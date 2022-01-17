@@ -15,10 +15,9 @@ class ToDoUIComposer {
         let presenter = TablePresenter(
             titleView: WeakRefVirtualProxy(sut),
             addActionView: WeakRefVirtualProxy(sut),
-            tableView: WeakRefVirtualProxy(sut)
+            tableView: WeakRefVirtualProxy(sut),
+            getTodo: getToDo
         )
-        presenter.getTodo = getToDo
-        
         sut.presenter = presenter
         return (sut, presenter)
     }

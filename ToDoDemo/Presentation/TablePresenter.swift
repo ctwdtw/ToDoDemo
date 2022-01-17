@@ -24,7 +24,7 @@ protocol InputView {
 }
 
 class TablePresenter {
-    var getTodo: (@escaping ([String]) -> Void) -> Void = ToDoStore.shared.getToDoItems(completionHandler:)
+    private let getTodo: (@escaping ([String]) -> Void) -> Void
     
     private let titleView: TitleView?
     
@@ -34,10 +34,15 @@ class TablePresenter {
     
     var inputView: InputView?
     
-    init(titleView: TitleView, addActionView: AddActionView, tableView: TableView) {
+    init(titleView: TitleView,
+         addActionView: AddActionView,
+         tableView: TableView,
+         getTodo: @escaping (@escaping ([String]) -> Void) -> Void = ToDoStore.shared.getToDoItems(completionHandler:)
+    ) {
         self.titleView = titleView
         self.addActionView = addActionView
         self.tableView = tableView
+        self.getTodo = getTodo
     }
     
     private var todos: [String] = []
