@@ -136,12 +136,6 @@ class ToDoDemoTests: XCTestCase {
         
         return sut
     }
-    
-    private func trackForMemoryLeak(_ instance: AnyObject, file: StaticString = #filePath, line: UInt = #line) {
-        addTeardownBlock { [weak instance] in
-            XCTAssertNil(instance, "instance \(String(describing: instance)) should have been deallocated", file: file, line: line)
-        }
-    }
 }
 
 extension ToDoDemoTests {
@@ -230,3 +224,12 @@ extension UIView {
         RunLoop.main.run(until: Date())
     }
 }
+
+extension XCTestCase {
+    func trackForMemoryLeak(_ instance: AnyObject, file: StaticString = #filePath, line: UInt = #line) {
+        addTeardownBlock { [weak instance] in
+            XCTAssertNil(instance, "instance \(String(describing: instance)) should have been deallocated", file: file, line: line)
+        }
+    }
+}
+

@@ -15,7 +15,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        let vc = ToDoUIComposer.compose(getToDo: ToDoStore.shared.getToDoItems(completionHandler:))
+        window?.rootViewController = vc.navigationController
         return true
     }
 

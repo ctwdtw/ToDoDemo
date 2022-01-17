@@ -19,6 +19,7 @@
 		63DB5DD4279475B500F3F4AF /* InputSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DB5DD3279475B500F3F4AF /* InputSection.swift */; };
 		63DB5DD6279475E500F3F4AF /* ToDoSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DB5DD5279475E500F3F4AF /* ToDoSection.swift */; };
 		63DB5DD82795201000F3F4AF /* ToDoUIComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DB5DD72795201000F3F4AF /* ToDoUIComposer.swift */; };
+		63DB5DDC279523F600F3F4AF /* AppDelegateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DB5DDB279523F600F3F4AF /* AppDelegateTests.swift */; };
 		D1CA9FF81F0E4FA6003EA944 /* ToDoStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1CA9FF71F0E4FA6003EA944 /* ToDoStore.swift */; };
 /* End PBXBuildFile section */
 
@@ -48,6 +49,7 @@
 		63DB5DD3279475B500F3F4AF /* InputSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputSection.swift; sourceTree = "<group>"; };
 		63DB5DD5279475E500F3F4AF /* ToDoSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoSection.swift; sourceTree = "<group>"; };
 		63DB5DD72795201000F3F4AF /* ToDoUIComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoUIComposer.swift; sourceTree = "<group>"; };
+		63DB5DDB279523F600F3F4AF /* AppDelegateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegateTests.swift; sourceTree = "<group>"; };
 		D1CA9FF71F0E4FA6003EA944 /* ToDoStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoStore.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -107,6 +109,7 @@
 			isa = PBXGroup;
 			children = (
 				63DB5DC327936CD100F3F4AF /* ToDoDemoTests.swift */,
+				63DB5DDB279523F600F3F4AF /* AppDelegateTests.swift */,
 			);
 			path = ToDoDemoTests;
 			sourceTree = "<group>";
@@ -273,6 +276,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				63DB5DDC279523F600F3F4AF /* AppDelegateTests.swift in Sources */,
 				63DB5DC427936CD100F3F4AF /* ToDoDemoTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
