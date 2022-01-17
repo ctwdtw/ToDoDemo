@@ -100,7 +100,6 @@
 				63DB5DCA2794326F00F3F4AF /* Service */,
 				63DB5DCE2794332000F3F4AF /* Presentation */,
 				63DB5DD02794755E00F3F4AF /* UI */,
-				4B5B9B3E1F0DDD580056E239 /* Main.storyboard */,
 				4B5B9B411F0DDD580056E239 /* Assets.xcassets */,
 				4B5B9B431F0DDD580056E239 /* LaunchScreen.storyboard */,
 				4B5B9B461F0DDD580056E239 /* Info.plist */,
@@ -128,6 +127,7 @@
 		63DB5DCB2794329600F3F4AF /* View */ = {
 			isa = PBXGroup;
 			children = (
+				4B5B9B3E1F0DDD580056E239 /* Main.storyboard */,
 				4B0131351F0E114600F35D70 /* TableInputCell.swift */,
 			);
 			path = View;
