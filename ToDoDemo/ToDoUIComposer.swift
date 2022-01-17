@@ -19,6 +19,10 @@ class ToDoUIComposer {
             getTodo: getToDo
         )
         sut.presenter = presenter
+        sut.sections = [
+            Section(dataSource: InputSection(presenter: presenter)),
+            Section(dataSource: ToDoSection(presenter: presenter))
+        ]
         return (sut, presenter)
     }
 }

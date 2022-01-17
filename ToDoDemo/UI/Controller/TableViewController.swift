@@ -14,10 +14,7 @@ let todoCellResueId = "todoCell"
 class TableViewController: UITableViewController {
     var presenter: TablePresenter!
     
-    private lazy var sections: [Section] = [
-        Section(dataSource: InputSection(presenter: presenter)),
-        Section(dataSource: ToDoSection(presenter: presenter))
-    ]
+    var sections: [Section]!
     
     override func viewDidLoad() {
         super.viewDidLoad()
