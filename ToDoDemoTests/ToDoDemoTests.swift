@@ -123,13 +123,16 @@ class ToDoDemoTests: XCTestCase {
         assertThat(sut, render: ["First-Todo", "Third-Todo"])
     }
     
-    func test_shouldHaveNoMemoryLeak_onGetToDoServiceEmitValueAfterSutDeallocated() {
+    func test_shouldHaveNoMemoryLeakAndNoCrash_onGetToDoServiceEmitValueAfterSutDeallocated() {
         //
         var completeForEmit: (([String]) -> Void)?
-        var sut: TableViewController? = makeSUT(
-            getToDo: { complete in completeForEmit = complete }
-        )
-        sut?.loadViewIfNeeded()
+        var sut: TableViewController?
+        autoreleasepool {
+            sut = makeSUT(
+                getToDo: { complete in completeForEmit = complete }
+            )
+            sut?.loadViewIfNeeded()
+        }
         
         //
         sut = nil
