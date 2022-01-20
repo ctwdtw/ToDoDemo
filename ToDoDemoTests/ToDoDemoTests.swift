@@ -123,6 +123,21 @@ class ToDoDemoTests: XCTestCase {
         assertThat(sut, render: ["First-Todo", "Third-Todo"])
     }
     
+    func test_shouldHaveNoMemoryLeak_onGetToDoServiceEmitValueAfterSutDeallocated() {
+        //
+        var completeForEmit: (([String]) -> Void)?
+        var sut: TableViewController? = makeSUT(
+            getToDo: { complete in completeForEmit = complete }
+        )
+        sut?.loadViewIfNeeded()
+        
+        //
+        sut = nil
+        
+        //
+        completeForEmit?(["any-to-do"])
+    }
+    
     private func makeSUT(
         stubToDos: [String] = [],
         file: StaticString = #filePath, line: UInt = #line
@@ -137,7 +152,7 @@ class ToDoDemoTests: XCTestCase {
     }
     
     private func makeSUT(
-        getToDo: @escaping (([String]) -> Void) -> Void,
+        getToDo: @escaping (@escaping([String]) -> Void) -> Void,
         file: StaticString = #filePath, line: UInt = #line
     ) -> TableViewController {
         

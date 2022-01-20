@@ -23,6 +23,12 @@ protocol InputView {
     func didUpdateInputText(_ text: String)
 }
 
+
+func printMemoryAddress(_ instance: AnyObject, message: String = "") {
+    print("log: - instance \(type(of: instance)) \(Unmanaged.passUnretained(instance).toOpaque() ), \(message)")
+}
+
+
 class TablePresenter {
     private let getTodo: (@escaping ([String]) -> Void) -> Void
     
@@ -63,13 +69,13 @@ class TablePresenter {
     }
     
     func fetchToDo() {
-        getTodo { (todos) in
+        getTodo { [unowned self] (todos) in
+            printMemoryAddress(self, message: "getTodoComplete")
             self.todos = todos
             self.titleView?.didUpDateTitle(self.presentedToDoCount())
             self.tableView?.didUpdateTable()
         }
     }
-    
     
     func removeToDo(at index: Int) {
         todos.remove(at: index)
@@ -97,5 +103,9 @@ class TablePresenter {
     //MARK: - presentation
     private func presentedToDoCount() -> String {
         return "TODO = \(todos.count)"
+    }
+    
+    deinit {
+        printMemoryAddress(self, message: "deinit")
     }
 }
