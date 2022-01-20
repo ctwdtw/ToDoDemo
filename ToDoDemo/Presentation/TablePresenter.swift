@@ -58,27 +58,28 @@ class TablePresenter {
     }
     
     func getInitialViewData() {
-        titleView?.didUpDateTitle("TODO - (0)")
+        titleView?.didUpDateTitle(presentedToDoCount())
         addActionView?.didUpdateAddActionView(isEnabled: false)
     }
     
     func fetchToDo() {
         getTodo { (todos) in
             self.todos = todos
-            self.titleView?.didUpDateTitle("TODO - (\(todos.count))")
+            self.titleView?.didUpDateTitle(self.presentedToDoCount())
             self.tableView?.didUpdateTable()
         }
     }
     
+    
     func removeToDo(at index: Int) {
         todos.remove(at: index)
-        titleView?.didUpDateTitle("TODO - (\(todos.count))")
+        titleView?.didUpDateTitle(presentedToDoCount())
         tableView?.didUpdateTable()
     }
     
     func insertToDo(_ toDo: String) {
         todos.insert(toDo, at: 0)
-        titleView?.didUpDateTitle("TODO - (\(todos.count))")
+        titleView?.didUpDateTitle(presentedToDoCount())
         tableView?.didUpdateTable()
         inputView?.didUpdateInputText("")
         addActionView?.didUpdateAddActionView(isEnabled: false)
@@ -91,5 +92,10 @@ class TablePresenter {
     
     func toDoViewModel(at index: Int) -> String {
         return todos[index]
+    }
+    
+    //MARK: - presentation
+    private func presentedToDoCount() -> String {
+        return "TODO = \(todos.count)"
     }
 }
