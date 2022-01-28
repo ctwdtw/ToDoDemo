@@ -14,6 +14,8 @@
 		4B5B9B421F0DDD580056E239 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4B5B9B411F0DDD580056E239 /* Assets.xcassets */; };
 		4B5B9B451F0DDD580056E239 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4B5B9B431F0DDD580056E239 /* LaunchScreen.storyboard */; };
 		63411F0827A40606005ABA1A /* ToDo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63411F0727A40606005ABA1A /* ToDo.swift */; };
+		63C7AA6D27A411D7008E4D57 /* SwiftUIExperiments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C7AA6B27A411D7008E4D57 /* SwiftUIExperiments.swift */; };
+		63C7AA6E27A411D7008E4D57 /* ToDoListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C7AA6C27A411D7008E4D57 /* ToDoListView.swift */; };
 		63DB5DC427936CD100F3F4AF /* ToDoDemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DB5DC327936CD100F3F4AF /* ToDoDemoTests.swift */; };
 		63DB5DCD2794331B00F3F4AF /* TablePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DB5DCC2794331B00F3F4AF /* TablePresenter.swift */; };
 		63DB5DD22794757400F3F4AF /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DB5DD12794757400F3F4AF /* Section.swift */; };
@@ -45,6 +47,8 @@
 		4B5B9B441F0DDD580056E239 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4B5B9B461F0DDD580056E239 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		63411F0727A40606005ABA1A /* ToDo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDo.swift; sourceTree = "<group>"; };
+		63C7AA6B27A411D7008E4D57 /* SwiftUIExperiments.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftUIExperiments.swift; sourceTree = "<group>"; };
+		63C7AA6C27A411D7008E4D57 /* ToDoListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToDoListView.swift; sourceTree = "<group>"; };
 		63DB5DC127936CD100F3F4AF /* ToDoDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ToDoDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		63DB5DC327936CD100F3F4AF /* ToDoDemoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoDemoTests.swift; sourceTree = "<group>"; };
 		63DB5DCC2794331B00F3F4AF /* TablePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TablePresenter.swift; sourceTree = "<group>"; };
@@ -118,6 +122,15 @@
 			path = Core;
 			sourceTree = "<group>";
 		};
+		63C7AA6A27A411D7008E4D57 /* SwiftUIView */ = {
+			isa = PBXGroup;
+			children = (
+				63C7AA6B27A411D7008E4D57 /* SwiftUIExperiments.swift */,
+				63C7AA6C27A411D7008E4D57 /* ToDoListView.swift */,
+			);
+			path = SwiftUIView;
+			sourceTree = "<group>";
+		};
 		63DB5DC227936CD100F3F4AF /* ToDoDemoTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -168,6 +181,7 @@
 			children = (
 				63DB5DCF2794754600F3F4AF /* Controller */,
 				63DB5DCB2794329600F3F4AF /* View */,
+				63C7AA6A27A411D7008E4D57 /* SwiftUIView */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -283,8 +297,10 @@
 				D1CA9FF81F0E4FA6003EA944 /* ToDoStore.swift in Sources */,
 				63DB5DCD2794331B00F3F4AF /* TablePresenter.swift in Sources */,
 				63DB5DD22794757400F3F4AF /* Section.swift in Sources */,
+				63C7AA6E27A411D7008E4D57 /* ToDoListView.swift in Sources */,
 				4B0131361F0E114600F35D70 /* TableInputCell.swift in Sources */,
 				4B5B9B3B1F0DDD580056E239 /* AppDelegate.swift in Sources */,
+				63C7AA6D27A411D7008E4D57 /* SwiftUIExperiments.swift in Sources */,
 				63DB5DD6279475E500F3F4AF /* ToDoSection.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -374,7 +390,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -423,7 +439,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -436,6 +452,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = ToDoDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.onevcat.ToDoDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -449,6 +466,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = ToDoDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.onevcat.ToDoDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -472,7 +490,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 7S9CF6BJNF;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -500,7 +518,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 7S9CF6BJNF;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.0;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = paul.lee.dev.ToDoDemoTests;

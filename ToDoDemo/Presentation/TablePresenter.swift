@@ -31,22 +31,16 @@ struct ToDoViewData: Identifiable {
 class TablePresenter {
     private let getTodo: (@escaping (GetToDoResult) -> Void) -> Void
     
-    private let titleView: TitleView?
+    var titleView: TitleView?
     
-    private let addActionView: AddActionView?
+    var addActionView: AddActionView?
     
-    private let tableView: TableView?
+    var tableView: TableView?
     
     var inputView: InputView?
     
-    init(titleView: TitleView,
-         addActionView: AddActionView,
-         tableView: TableView,
-         getTodo: @escaping (@escaping (GetToDoResult) -> Void) -> Void = ToDoStore.shared.getToDoItems(completionHandler:)
+    init(getTodo: @escaping (@escaping (GetToDoResult) -> Void) -> Void = ToDoStore.shared.getToDoItems(completionHandler:)
     ) {
-        self.titleView = titleView
-        self.addActionView = addActionView
-        self.tableView = tableView
         self.getTodo = getTodo
     }
     
@@ -104,4 +98,5 @@ class TablePresenter {
     private func presentedToDoCount() -> String {
         return "TODO = \(todos.count)"
     }
+    
 }
