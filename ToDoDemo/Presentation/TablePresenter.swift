@@ -23,8 +23,13 @@ protocol InputView {
     func didUpdateInputText(_ text: String)
 }
 
+struct ToDoViewData: Identifiable {
+    let id: UUID
+    let title: String
+}
+
 class TablePresenter {
-    private let getTodo: (@escaping ([String]) -> Void) -> Void
+    private let getTodo: (@escaping (GetToDoResult) -> Void) -> Void
     
     private let titleView: TitleView?
     
@@ -37,7 +42,7 @@ class TablePresenter {
     init(titleView: TitleView,
          addActionView: AddActionView,
          tableView: TableView,
-         getTodo: @escaping (@escaping ([String]) -> Void) -> Void = ToDoStore.shared.getToDoItems(completionHandler:)
+         getTodo: @escaping (@escaping (GetToDoResult) -> Void) -> Void = ToDoStore.shared.getToDoItems(completionHandler:)
     ) {
         self.titleView = titleView
         self.addActionView = addActionView
@@ -45,7 +50,7 @@ class TablePresenter {
         self.getTodo = getTodo
     }
     
-    private var todos: [String] = []
+    private var todos: [ToDo] = []
     
     var numberOfToDos: Int {
         return todos.count
@@ -77,8 +82,8 @@ class TablePresenter {
         tableView?.didUpdateTable()
     }
     
-    func insertToDo(_ toDo: String) {
-        todos.insert(toDo, at: 0)
+    func insertToDo(_ title: String) {
+        todos.insert(ToDo(id: UUID(), title: title), at: 0)
         titleView?.didUpDateTitle(presentedToDoCount())
         tableView?.didUpdateTable()
         inputView?.didUpdateInputText("")
@@ -90,8 +95,9 @@ class TablePresenter {
         addActionView?.didUpdateAddActionView(isEnabled: isItemLengthEnough)
     }
     
-    func toDoViewModel(at index: Int) -> String {
-        return todos[index]
+    func toDoViewData(at index: Int) -> ToDoViewData {
+        let todo = todos[index]
+        return ToDoViewData(id: todo.id, title: todo.title)
     }
     
     //MARK: - presentation

@@ -20,7 +20,7 @@ class ToDoSection: NSObject, UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: todoCellResueId, for: indexPath)
-        cell.textLabel?.text = presenter.toDoViewModel(at: indexPath.row)
+        cell.textLabel?.text = presenter.toDoViewData(at: indexPath.row).title
         return cell
     }
     

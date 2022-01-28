@@ -47,7 +47,7 @@ class ToDoDemoTests: XCTestCase {
     }
     
     func test_renderOneToDo_OnOneToDo() {
-        let toDos = ["First-Todo"]
+        let toDos = makeToDos(titles: ["First-Todo"])
         let sut = makeSUT(stubToDos: toDos)
         
         sut.loadViewIfNeeded()
@@ -56,7 +56,7 @@ class ToDoDemoTests: XCTestCase {
     }
     
     func test_renderManyToDo_onManyToDo() {
-        let toDos = ["First-Todo", "Second-Todo", "Third-Todo"]
+        let toDos = makeToDos(titles: ["First-Todo", "Second-Todo", "Third-Todo"])
         let sut = makeSUT(stubToDos: toDos)
         
         sut.loadViewIfNeeded()
@@ -65,7 +65,7 @@ class ToDoDemoTests: XCTestCase {
     }
     
     func test_renderToDoCounts() {
-        let toDos = ["First-Todo", "Second-Todo"]
+        let toDos = makeToDos(titles: ["First-Todo", "Second-Todo"])
         let sut = makeSUT(stubToDos: toDos)
         
         sut.loadViewIfNeeded()
@@ -98,8 +98,8 @@ class ToDoDemoTests: XCTestCase {
         sut.loadViewIfNeeded()
         assertThat(sut, render: [])
         
-        sut.simulateAddToDo("A-new-ToDo")
-        assertThat(sut, render: ["A-new-ToDo"])
+        let todo = sut.simulateAddToDoTitle("A-new-ToDo")
+        assertThat(sut, render: [todo])
     }
     
     func test_disableAddAction_afterAdd() {
@@ -108,24 +108,24 @@ class ToDoDemoTests: XCTestCase {
         sut.loadViewIfNeeded()
         assertThat(sut, render: [])
         
-        sut.simulateAddToDo("A-new-ToDo")
+        sut.simulateAddToDoTitle("A-new-ToDo")
         assertThat(sut, enableAdd: false)
     }
     
     func test_removeToDo_onRemove() {
-        let toDos = ["First-Todo", "Second-Todo", "Third-Todo"]
+        let toDos = makeToDos(titles: ["First-Todo", "Second-Todo", "Third-Todo"])
         let sut = makeSUT(stubToDos: toDos)
         
         sut.loadViewIfNeeded()
         assertThat(sut, render: toDos)
 
         sut.simulateRemoveToDo(at: 1)
-        assertThat(sut, render: ["First-Todo", "Third-Todo"])
+        assertThat(sut, render: [toDos[0], toDos[2]])
     }
     
     func test_shouldHaveNoMemoryLeakAndNoCrash_onGetToDoServiceEmitValueAfterSutDeallocated() {
         //
-        var completeForEmit: (([String]) -> Void)?
+        var completeForEmit: ((GetToDoResult) -> Void)?
         var sut: TableViewController?
         autoreleasepool {
             sut = makeSUT(
@@ -138,11 +138,11 @@ class ToDoDemoTests: XCTestCase {
         sut = nil
         
         //
-        completeForEmit?(["any-to-do"])
+        completeForEmit?([ToDo(id: UUID(), title: "any-to-do")])
     }
     
     private func makeSUT(
-        stubToDos: [String] = [],
+        stubToDos: [ToDo] = [],
         file: StaticString = #filePath, line: UInt = #line
     ) -> TableViewController {
         
@@ -155,7 +155,7 @@ class ToDoDemoTests: XCTestCase {
     }
     
     private func makeSUT(
-        getToDo: @escaping (@escaping([String]) -> Void) -> Void,
+        getToDo: @escaping (@escaping(GetToDoResult) -> Void) -> Void,
         file: StaticString = #filePath, line: UInt = #line
     ) -> TableViewController {
         
@@ -166,14 +166,24 @@ class ToDoDemoTests: XCTestCase {
         
         return sut
     }
+    
+    private func makeToDo(id: UUID = UUID(), title: String) -> ToDo {
+        ToDo(id: id, title: title)
+    }
+    
+    private func makeToDos(titles: [String]) -> [ToDo] {
+        titles.map { title in
+            makeToDo(title: title)
+        }
+    }
 }
 
 extension ToDoDemoTests {
-    private func assertThat(_ sut: TableViewController, render toDos: [String], file: StaticString = #filePath, line: UInt = #line) {
+    private func assertThat(_ sut: TableViewController, render toDos: [ToDo], file: StaticString = #filePath, line: UInt = #line) {
         sut.view.forceLayout()
         toDos.enumerated().forEach { (index, toDo) in
             let toDoView = sut.cell(at: index, section: sut.toDosSection)
-            XCTAssertEqual(toDoView?.textLabel?.text, toDo, "receive \(String(describing: toDoView?.textLabel?.text)), but expect \(toDo)", file: file, line: line)
+            XCTAssertEqual(toDoView?.textLabel?.text, toDo.title, "receive \(String(describing: toDoView?.textLabel?.text)), but expect \(toDo)", file: file, line: line)
         }
     }
     
@@ -237,11 +247,13 @@ private extension TableViewController {
         textField?.sendActions(for: .editingChanged)
     }
     
-    func simulateAddToDo(_ toDo: String) {
-        simulateInputText(toDo)
+    @discardableResult
+    func simulateAddToDoTitle(_ title: String) -> ToDo {
+        simulateInputText(title)
         let target = addBarButtonItem?.target
         let action = addBarButtonItem?.action
         UIApplication.shared.sendAction(action!, to: target, from: nil, for: nil)
+        return ToDo(id: UUID(), title: title)
     }
     
     func simulateRemoveToDo(at index: Int) {

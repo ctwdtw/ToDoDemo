@@ -9,7 +9,7 @@
 import UIKit
 
 class ToDoUIComposer {
-    static func compose(getToDo: @escaping (@escaping ([String]) -> Void) -> Void) -> (TableViewController, TablePresenter) {
+    static func compose(getToDo: @escaping (@escaping (GetToDoResult) -> Void) -> Void) -> (TableViewController, TablePresenter) {
         let navc = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController() as! UINavigationController
         let sut = navc.children[0] as! TableViewController
         let presenter = TablePresenter(
