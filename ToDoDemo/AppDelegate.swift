@@ -22,15 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             window?.rootViewController = UINavigationController(rootViewController: vc)
             
         } else {
-            let (listView, _) = ToDoSwiftUIComposer.compose { complete in
-                complete(
-                    [ToDo(id: UUID(), title: "1"),
-                     ToDo(id: UUID(), title: "2"),
-                     ToDo(id: UUID(), title: "3")
-                    ]
-                )
-            }
-            
+            let (listView, _) = ToDoSwiftUIComposer.compose(getToDo: ToDoStore.shared.getToDoItems(completionHandler:))
             window?.rootViewController = UIHostingController(rootView: listView)
         }
         

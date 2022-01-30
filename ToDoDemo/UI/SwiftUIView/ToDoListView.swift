@@ -13,23 +13,61 @@ struct ToDoListViewPreview: PreviewProvider {
         let (listView, _) = ToDoSwiftUIComposer.compose { complete in
             complete([ToDo(id: UUID(), title: "hi-there")])
         }
-
+        
         return listView
     }
 }
 
 struct ToDoListView: View {
-    @State private var todos: [ToDoViewData] = []
+    private class ToDoListViewModel: ObservableObject {
+        @Published
+        var title = ""
+        
+        @Published
+        var todos: [ToDoViewData] = []
+        
+        @Published
+        var inputText = ""
+        
+        @Published
+        var addActionEnabled = false
+    }
+    
+    @ObservedObject private var viewModel: ToDoListViewModel = ToDoListViewModel()
     
     var body: some View {
-        
-        List($todos, id: \.id) { $todo in
-            Text(todo.title)
-            
+        NavigationView {
+            List {
+                SwiftUI.Section("input") {
+                    TextField(viewModel.inputText, text: $viewModel.inputText)
+                        .onChange(of: viewModel.inputText) { newValue in
+                            presenter.inputText(newValue)
+                        }
+                }
+                
+                SwiftUI.Section("todos") {
+                    ForEach(viewModel.todos, id: \.id) { todo in
+                        Text(todo.title)
+                    }
+                }
+                
+            }.navigationBarItems(
+                trailing: Button(action: {
+                    presenter.insertToDo(viewModel.inputText)
+                    
+                }) {
+                    Image(systemName: "plus")
+                }.disabled(!viewModel.addActionEnabled)
+                
+            ).navigationBarTitle(
+                Text(viewModel.title),
+                displayMode: .inline
+            )
         }.onAppear {
-            presenter.fetchToDo()
             presenter.getInitialViewData()
+            presenter.fetchToDo()
         }
+        
     }
     
     let presenter: TablePresenter!
@@ -40,22 +78,21 @@ struct ToDoListView: View {
     
 }
 
-extension ToDoListView: TableView {
-    func didUpdateTable() {
-        let fetchedToDoViewData = presenter.toDoViewDatas()
-        todos = fetchedToDoViewData
+extension ToDoListView: TitleView {
+    func didUpDateTitle(_ title: String) {
+        viewModel.title = title
     }
 }
 
-extension ToDoListView: TitleView {
-    func didUpDateTitle(_ title: String) {
-        
+extension ToDoListView: TableView {
+    func didUpdateTable() {
+        viewModel.todos = presenter.toDoViewDatas()
     }
 }
 
 extension ToDoListView: AddActionView {
     func didUpdateAddActionView(isEnabled: Bool) {
-        
+        viewModel.addActionEnabled = isEnabled
     }
 }
 
@@ -63,7 +100,7 @@ extension ToDoListView: AddActionView {
 
 extension ToDoListView: InputView {
     func didUpdateInputText(_ text: String) {
-        
+        viewModel.inputText = text
     }
 }
 
