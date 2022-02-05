@@ -46,8 +46,14 @@ struct ToDoListView: View {
                 }
                 
                 SwiftUI.Section("todos") {
-                    ForEach(viewModel.todos, id: \.id) { todo in
-                        Text(todo.title)
+                    ForEach(Array(zip(viewModel.todos.indices, viewModel.todos)), id: \.1.id) { idx, todo in
+                        Button(action: {
+                            presenter.removeToDo(at: idx)
+                            
+                        }, label: {
+                            Text(todo.title)
+                            
+                        })
                     }
                 }
                 
@@ -96,8 +102,6 @@ extension ToDoListView: AddActionView {
     }
 }
 
-
-
 extension ToDoListView: InputView {
     func didUpdateInputText(_ text: String) {
         viewModel.inputText = text
@@ -107,6 +111,6 @@ extension ToDoListView: InputView {
 //MARK: - TablePresenter + SwiftUI
 extension TablePresenter {
     func toDoViewDatas() -> [ToDoViewData] {
-        (0...numberOfToDos-1).map { toDoViewData(at:$0) }
+        (0..<numberOfToDos).map { toDoViewData(at:$0) }
     }
 }
