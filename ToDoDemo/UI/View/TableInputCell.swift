@@ -8,14 +8,12 @@
 
 import UIKit
 
-protocol TableViewInputCellDelegate: class {
-    func inputChanged(cell: TableViewInputCell, text: String)
-}
-
 class TableViewInputCell: UITableViewCell {
-    weak var delegate: TableViewInputCellDelegate?
+    weak var presenter: TablePresenter?
+    
     @IBOutlet weak var textField: UITextField!
+    
     @objc @IBAction func textFieldValueChanged(_ sender: UITextField) {
-        delegate?.inputChanged(cell: self, text: sender.text ?? "")
+        presenter?.inputText(sender.text ?? "")
     }
 }
