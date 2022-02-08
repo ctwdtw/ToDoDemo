@@ -15,8 +15,8 @@ class ToDoUIComposer {
         let presenter = TablePresenter(getTodo: getToDo)
         sut.presenter = presenter
         sut.sections = [
-            Section(dataSource: InputSection(presenter: presenter)),
-            Section(dataSource: ToDoSection(presenter: presenter))
+            InputSection(presenter: presenter),
+            ToDoSection(presenter: presenter)
         ]
         
         presenter.titleView = WeakRefVirtualProxy(sut)

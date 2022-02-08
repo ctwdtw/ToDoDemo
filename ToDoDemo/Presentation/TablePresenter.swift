@@ -50,12 +50,6 @@ class TablePresenter {
         return todos.count
     }
     
-    let inputSection = 0
-    
-    var inputIndexPath: IndexPath {
-        IndexPath(row: 0, section: inputSection)
-    }
-    
     func getInitialViewData() {
         titleView?.didUpDateTitle(presentedToDoCount())
         addActionView?.didUpdateAddActionView(isEnabled: false)

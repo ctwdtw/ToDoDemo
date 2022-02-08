@@ -18,7 +18,7 @@
 		63C7AA6E27A411D7008E4D57 /* ToDoListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C7AA6C27A411D7008E4D57 /* ToDoListView.swift */; };
 		63DB5DC427936CD100F3F4AF /* ToDoDemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DB5DC327936CD100F3F4AF /* ToDoDemoTests.swift */; };
 		63DB5DCD2794331B00F3F4AF /* TablePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DB5DCC2794331B00F3F4AF /* TablePresenter.swift */; };
-		63DB5DD22794757400F3F4AF /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DB5DD12794757400F3F4AF /* Section.swift */; };
+		63DB5DD22794757400F3F4AF /* TableViewDataSourceDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DB5DD12794757400F3F4AF /* TableViewDataSourceDelegate.swift */; };
 		63DB5DD4279475B500F3F4AF /* InputSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DB5DD3279475B500F3F4AF /* InputSection.swift */; };
 		63DB5DD6279475E500F3F4AF /* ToDoSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DB5DD5279475E500F3F4AF /* ToDoSection.swift */; };
 		63DB5DD82795201000F3F4AF /* ToDoUIComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DB5DD72795201000F3F4AF /* ToDoUIComposer.swift */; };
@@ -52,7 +52,7 @@
 		63DB5DC127936CD100F3F4AF /* ToDoDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ToDoDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		63DB5DC327936CD100F3F4AF /* ToDoDemoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoDemoTests.swift; sourceTree = "<group>"; };
 		63DB5DCC2794331B00F3F4AF /* TablePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TablePresenter.swift; sourceTree = "<group>"; };
-		63DB5DD12794757400F3F4AF /* Section.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Section.swift; sourceTree = "<group>"; };
+		63DB5DD12794757400F3F4AF /* TableViewDataSourceDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewDataSourceDelegate.swift; sourceTree = "<group>"; };
 		63DB5DD3279475B500F3F4AF /* InputSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputSection.swift; sourceTree = "<group>"; };
 		63DB5DD5279475E500F3F4AF /* ToDoSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoSection.swift; sourceTree = "<group>"; };
 		63DB5DD72795201000F3F4AF /* ToDoUIComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoUIComposer.swift; sourceTree = "<group>"; };
@@ -168,7 +168,7 @@
 		63DB5DCF2794754600F3F4AF /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				63DB5DD12794757400F3F4AF /* Section.swift */,
+				63DB5DD12794757400F3F4AF /* TableViewDataSourceDelegate.swift */,
 				63DB5DD3279475B500F3F4AF /* InputSection.swift */,
 				63DB5DD5279475E500F3F4AF /* ToDoSection.swift */,
 				4B5B9B3C1F0DDD580056E239 /* TableViewController.swift */,
@@ -296,7 +296,7 @@
 				4B5B9B3D1F0DDD580056E239 /* TableViewController.swift in Sources */,
 				D1CA9FF81F0E4FA6003EA944 /* ToDoStore.swift in Sources */,
 				63DB5DCD2794331B00F3F4AF /* TablePresenter.swift in Sources */,
-				63DB5DD22794757400F3F4AF /* Section.swift in Sources */,
+				63DB5DD22794757400F3F4AF /* TableViewDataSourceDelegate.swift in Sources */,
 				63C7AA6E27A411D7008E4D57 /* ToDoListView.swift in Sources */,
 				4B0131361F0E114600F35D70 /* TableInputCell.swift in Sources */,
 				4B5B9B3B1F0DDD580056E239 /* AppDelegate.swift in Sources */,

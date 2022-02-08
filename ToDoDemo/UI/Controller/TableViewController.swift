@@ -14,7 +14,7 @@ let todoCellResueId = "todoCell"
 class TableViewController: UITableViewController {
     var presenter: TablePresenter!
     
-    var sections: [Section]!
+    var sections: [TableViewDataSourceDelegate]!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,7 +23,7 @@ class TableViewController: UITableViewController {
     }
 
     @IBAction func addButtonPressed(_ sender: Any) {
-        guard let inputCell = tableView.cellForRow(at: presenter.inputIndexPath) as? TableViewInputCell,
+        guard let inputCell = tableView.cellForRow(at: inputIndexPath()) as? TableViewInputCell,
               let text = inputCell.textField.text else
         {
             return
@@ -31,6 +31,11 @@ class TableViewController: UITableViewController {
         
         presenter.insertToDo(text)
     
+    }
+    
+    private func inputIndexPath() -> IndexPath {
+        let inputSection = sections.firstIndex { $0 as? InputSection != nil } ?? 0
+        return IndexPath(row: 0, section: inputSection)
     }
 }
 
@@ -62,18 +67,15 @@ extension TableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let ds = sections[section].dataSource
-        return ds.tableView(tableView, numberOfRowsInSection: section)
+        sections[section].tableView(tableView, numberOfRowsInSection: section)
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let ds = sections[indexPath.section].dataSource
-        return ds.tableView(tableView, cellForRowAt: indexPath)
+        sections[indexPath.section].tableView(tableView, cellForRowAt: indexPath)
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let dl = sections[indexPath.section].delegate
-        dl?.tableView?(tableView, didSelectRowAt: indexPath)
+        sections[indexPath.section].tableView?(tableView, didSelectRowAt: indexPath)
     }
 }
 

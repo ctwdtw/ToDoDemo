@@ -11,7 +11,7 @@ import SwiftUI
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-    let uikit = false
+    let uikit = true
     
     var window: UIWindow?
     
